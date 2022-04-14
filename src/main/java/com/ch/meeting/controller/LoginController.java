@@ -18,12 +18,27 @@ public class LoginController {
     EmployeeService employeeService;
 
 
-    @GetMapping("/")
+
+    /*项目启动初始路径
+    * 跳转到登录页面
+    * */
+    @RequestMapping ("/")
     public String login() {
         return "login";
     }
 
-    @PostMapping("/dologin")
+
+    /*
+     * @Description:调用Service层，处理用户登录请求
+     * @Author: chenghao
+     * @Date: 2022/4/13 16:45
+     * @param username
+     * @param password
+     * @param model·
+     * @param session
+     * @return: java.lang.String
+     **/
+    @PostMapping ("/dologin")
     public String toLogin(String username, String password, Model model, HttpSession session) {
 
         Employee employee = employeeService.doLogin(username, password);
@@ -33,14 +48,17 @@ public class LoginController {
         } else {
             if (employee.getStatus() == 0) {
                 model.addAttribute("error", "用户待审批");
+                return "forward:/";
             } else if (employee.getStatus() == 2) {
                 model.addAttribute("error", "用户审批未通过");
+                return "forward:/";
             } else {
                 session.setAttribute("currentUser", employee);
                 return "redirect:/notifications";
             }
         }
-        return "login";
+
+
     }
 
 }
