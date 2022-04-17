@@ -9,6 +9,10 @@
         select * from department where departmentid = #{id}
     </select>
 
+    <select id="getAllDept" resultType="department">
+        select * from department;
+    </select>
+
 
 
 </mapper>

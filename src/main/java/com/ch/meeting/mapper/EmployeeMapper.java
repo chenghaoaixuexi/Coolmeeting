@@ -6,4 +6,5 @@ public interface EmployeeMapper {
 
     Employee loadEmpByUsername(String username);
 
+    void insertEmp(Employee employee);
 }

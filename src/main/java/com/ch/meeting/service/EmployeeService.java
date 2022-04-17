@@ -19,4 +19,19 @@ public class EmployeeService {
         }
         return employee;
     }
+
+    public Integer doreg(Employee employee) {
+        //从控制层传入employee对象，更具用户名判断是否已经存在该员工，避免重复注册
+        Employee emp = employeeMapper.loadEmpByUsername(employee.getUsername());
+        //如果没有，则设置表单没有填写的数据，并执行插入
+        if (emp == null) {
+            employee.setRole(1);
+            employee.setStatus(2);
+            //调用到层进行插入
+            employeeMapper.insertEmp(employee);
+            return 1;
+        }
+        return -1;
+
+    }
 }

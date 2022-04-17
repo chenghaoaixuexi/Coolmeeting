@@ -4,10 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ch.meeting.mapper.EmployeeMapper">
 
-
+    <!--根据用户名查询员工-->
     <select id="loadEmpByUsername" resultType="employee">
         select * from employee where username=#{username}
     </select>
+
+    <!--插入用户-->
+    <insert id="insertEmp" parameterType="employee">
+        insert into employee (employeename,username,phone,email,status,departmentid,password,role)
+        value (#{employeename},#{username},#{phone},#{email},#{status},#{departmentid},#{password},#{role})
+    </insert>
 
 
 
